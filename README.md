@@ -16,3 +16,20 @@
 ทำการติดตั้ง minikube จากนั้นตัว minikube จะสร้างpathในenvironmentให้<br>
 ![image](https://user-images.githubusercontent.com/119155285/226196105-8e57ab0e-f11a-4b14-8239-af8005602cc3.png)
 
+## การติดตั้ง Docker Desktop for Windows
+ทำการโหลด Docker Desktop for Windows
+- https://docs.docker.com/desktop/install/windows-install/
+![image](https://user-images.githubusercontent.com/119155285/226196293-ad7fcbb4-843a-43a7-b2a3-7dbb0e927808.png)
+
+สิ่งที่ได้จากการติดตั้ง Docker Desktop for Windows
+![image](https://user-images.githubusercontent.com/119155285/226196361-e9e5d5b7-6fc9-41ac-b526-a1c3ebc3d329.png)
+
+## การ deploy Traefik
+Ref : https://github.com/iamapinan/kubeplay-traefik
+
+ทำการเพิ่ม 127.0.0.1 traefik.spcn24.local ในไฟล์ hosts <br>
+ที่ path C:\Windows\System32\drivers\etc
+![image](https://user-images.githubusercontent.com/119155285/226196503-3324118a-5ce2-4db7-a728-b564ab137443.png)
+- ติดตั้ง Install Traefik โดยใช้คำสั่งนี้
+   
+       kubectl apply -f https://raw.githubusercontent.com/traefik/traefik/v2.9/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
