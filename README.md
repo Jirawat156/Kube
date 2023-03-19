@@ -33,3 +33,42 @@ Ref : https://github.com/iamapinan/kubeplay-traefik
 - ติดตั้ง Install Traefik โดยใช้คำสั่งนี้
    
        kubectl apply -f https://raw.githubusercontent.com/traefik/traefik/v2.9/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+       
+ - ติดตั้ง Install RBAC for Traefik โดยใช้คำสั่งนี้
+      
+       kubectl apply -f https://raw.githubusercontent.com/traefik/traefik/v2.9/docs/content/reference/dynamic-configuration/kubernetes-crd-rbac.yml
+      
+ - สร้าง namespace โดยใช้คำสั่งนี้
+      
+       kubectl create namespace spcn24
+    
+ - สร้าง Install Helmchart โดยใช้คำสั่งนี้
+      
+       helm repo add traefik https://traefik.github.io/charts
+       helm repo update
+       helm install traefik traefik/traefik
+   
+  - สร้างไฟล์ auth-secret โดยใช้คำสั่งใน git bash
+      
+        htpasswd -nB user | tee auth-secret  /// ตรง user สามารถเปลี่ยนได้ SPCN24
+        
+  - ขั้นตอนต่อไป
+
+        kubectl create secret generic -n " กำหนดชื่อ " dashboard-auth-secret \ --from-file=users=auth-secret -o yaml --dry-run=client | tee dashboard-secret.yaml
+        
+  - เมื่อเสร็จแล้วจะได้ไฟล์ dashboard-secret.yaml <br>
+  และนำข้อมูลตรง user ไปใส่ในไฟล์ traefik-dashboard.yaml ให้ตรงกัน เช่น
+  ![image](https://user-images.githubusercontent.com/119155285/226197244-4fa49d18-4ac3-41c8-99b6-2e9d08e383f6.png)
+  ![image](https://user-images.githubusercontent.com/119155285/226197266-a76a6046-a791-4361-b36a-151ade6f815f.png)
+  
+  - Deploy โดยใช้คำสั่งนี้
+  
+        >> kubectl apply -f traefik-dashboard.yaml
+        
+  - สร้าง tunnel โดยใช้คำสั่งนี้
+
+        >> minikube tunnel
+
+  ทดสอบ deploy traefik โดยโดเมนที่เราตั้งไว้ 
+           
+           https://traefik.spcn24.local
